@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Slider</title>
+  
+  <style>
+    /* 
+     * CSS from: https://cdn.jsdelivr.net/npm/@accessible360/accessible-slick@1.0.1/slick/slick.min.css
+     */
+    .slick-slider{position:relative;display:block;box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;-khtml-user-select:none;-ms-touch-action:pan-y;touch-action:pan-y;-webkit-tap-highlight-color:transparent}.slick-list{position:relative;display:block;overflow:hidden;margin:0;padding:0}.slick-list:focus{outline:0}.slick-list.dragging{cursor:pointer;cursor:hand}.slick-slider .slick-list,.slick-slider .slick-track{-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.slick-track{position:relative;top:0;left:0;display:block;margin-left:auto;margin-right:auto}.slick-track:after,.slick-track:before{display:table;content:''}.slick-track:after{clear:both}.slick-loading .slick-track{visibility:hidden}.slick-slide{display:none;float:left;height:100%;min-height:1px}[dir=rtl] .slick-slide{float:right}.slick-slide img{display:block}.slick-slide.slick-loading img{display:none}.slick-slide.dragging img{pointer-events:none}.slick-initialized .slick-slide{display:block}.slick-loading .slick-slide{visibility:hidden}.slick-vertical .slick-slide{display:block;height:auto;border:1px solid transparent}.slick-arrow.slick-hidden{display:none}
+
+    /*
+     * CSS from: https://cdn.jsdelivr.net/npm/@accessible360/accessible-slick@1.0.1/slick/accessible-slick-theme.min.css
+     */
+    .slick-dots,.slick-next,.slick-prev{position:absolute;display:block;padding:0}.slick-dots li button:before,.slick-next:before,.slick-prev:before{font-family:slick;font-size:20px;line-height:1;opacity:.75;color:#fff;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.slick-next,.slick-prev{font-size:0;line-height:0;top:50%;width:20px;height:20px;-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%);cursor:pointer;color:transparent;border:none;outline:0;background:0 0}.slick-next:focus,.slick-next:hover,.slick-prev:focus,.slick-prev:hover{color:transparent;outline:0;background:0 0}.slick-next:focus:before,.slick-next:hover:before,.slick-prev:focus:before,.slick-prev:hover:before{opacity:1}.slick-disabled:before{opacity:.25}.slick-prev{left:-25px}[dir=rtl] .slick-prev{right:-25px;left:auto}.slick-prev:before{content:'←'}[dir=rtl] .slick-prev:before{content:'→'}.slick-next{right:-25px}[dir=rtl] .slick-next{right:auto;left:-25px}.slick-next:before{content:'→'}[dir=rtl] .slick-next:before{content:'←'}.slick-dotted.slick-slider{margin-bottom:30px}.slick-dots{bottom:-25px;width:100%;margin:0;list-style:none;text-align:center}.slick-dots li{position:relative;display:inline-block;width:20px;height:20px;margin:0 5px;cursor:pointer}.slick-dots li button{font-size:0;line-height:0;display:block;width:20px;height:20px;cursor:pointer;color:transparent;border:0;outline:0;background:0 0}.slick-dots li button:focus,.slick-dots li button:hover{outline:0}.slick-dots li button:focus:before,.slick-dots li button:hover:before{opacity:1}.slick-dots li button:before{font-size:6px;line-height:20px;position:absolute;top:0;left:0;width:20px;height:20px;content:'•';text-align:center;opacity:.25;color:#000}.slick-dots li.slick-active button:before{opacity:.75;color:#000}
+    
+    /* 
+     * CSS from: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css
+     */
+    /*!
+     * Font Awesome Free 5.14.0 by @fontawesome - https://fontawesome.com
+     * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+     */.fa,.fab,.fad,.fal,.far,.fas{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1}.fa-lg{font-size:1.33333em;line-height:.75em;vertical-align:-.0667em}.fa-xs{font-size:.75em}.fa-sm{font-size:.875em}.fa-1x{font-size:1em}.fa-2x{font-size:2em}.fa-3x{font-size:3em}.fa-4x{font-size:4em}.fa-5x{font-size:5em}.fa-6x{font-size:6em}.fa-7x{font-size:7em}.fa-8x{font-size:8em}.fa-9x{font-size:9em}.fa-10x{font-size:10em}.fa-fw{text-align:center;width:1.25em}.fa-ul{list-style-type:none;margin-left:2.5em;padding-left:0}.fa-ul>li{position:relative}.fa-li{left:-2em;position:absolute;text-align:center;width:2em;line-height:inherit}.fa-border{border:.08em solid #eee;padding:.25em .35em;border-radius:.1em}.fa-pull-left{float:left}.fa-pull-right{float:right}.fa.fa-pull-left,.fab.fa-pull-left,.fal.fa-pull-left,.far.fa-pull-left,.fas.fa-pull-left{margin-right:.3em}.fa.fa-pull-right,.fab.fa-pull-right,.fal.fa-pull-right,.far.fa-pull-right,.fas.fa-pull-right{margin-left:.3em}.fa-spin{-webkit-animation:fa-spin 2s infinite linear;animation:fa-spin 2s infinite linear}.fa-pulse{-webkit-animation:fa-spin 1s infinite steps(8);animation:fa-spin 1s infinite steps(8)}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.fa-rotate-90{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.fa-rotate-180{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.fa-rotate-270{-webkit-transform:rotate(270deg);transform:rotate(270deg)}.fa-flip-horizontal{-webkit-transform:scaleX(-1);transform:scaleX(-1)}.fa-flip-vertical{-webkit-transform:scaleY(-1);transform:scaleY(-1)}.fa-flip-both,.fa-flip-horizontal.fa-flip-vertical{-webkit-transform:scale(-1);transform:scale(-1)}:root .fa-flip-both,:root .fa-flip-horizontal,:root .fa-flip-vertical,:root .fa-rotate-180,:root .fa-rotate-270,:root .fa-rotate-90{filter:none}.fa-stack{display:inline-block;height:2em;line-height:2em;position:relative;vertical-align:middle;width:2.5em}.fa-stack-1x,.fa-stack-2x{left:0;position:absolute;text-align:center;width:100%}.fa-stack-1x{line-height:inherit}.fa-stack-2x{font-size:2em}.fa-inverse{color:#fff}.sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.sr-only-focusable:active,.sr-only-focusable:focus{clip:auto;height:auto;margin:0;overflow:visible;position:static;width:auto}@font-face{font-family:"Font Awesome 5 Brands";font-style:normal;font-weight:400;font-display:block;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-brands-400.eot);src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-brands-400.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-brands-400.woff) format("woff"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-brands-400.ttf) format("truetype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-brands-400.svg#fontawesome) format("svg")}.fab{font-family:"Font Awesome 5 Brands"}@font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:400;font-display:block;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-regular-400.eot);src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-regular-400.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-regular-400.woff) format("woff"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-regular-400.ttf) format("truetype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-regular-400.svg#fontawesome) format("svg")}.far{font-family:"Font Awesome 5 Free";font-weight:400}@font-face{font-family:"Font Awesome 5 Free";font-style:normal;font-weight:900;font-display:block;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-solid-900.eot);src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-solid-900.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-solid-900.woff) format("woff"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-solid-900.ttf) format("truetype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/webfonts/fa-solid-900.svg#fontawesome) format("svg")}.fa,.fas{font-family:"Font Awesome 5 Free";font-weight:900}
+     
+    /* 
+     * Original Custom CSS
+     */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+
+    .card-slider {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media screen and (max-width: 1024px) {
+      .card-slider {
+        width: 80%;
+      }
+    }
+    .card-slider .slick-prev,
+    .card-slider .slick-next {
+      color: black;
+      z-index: 10;
+    }
+    .card-slider .slick-prev:before,
+    .card-slider .slick-next:before {
+        color: black;
+    }
+
+    .card-slider .slick-slide {
+      padding: 0 10px;
+    }
+    .card-slider .card {
+      position: relative;
+      display: flex !important;
+      flex-direction: column;
+      height: 250px;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background-color: white;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.9);
+      transition: all 0.1s linear;
+    }
+    @media screen and (max-width: 600px) {
+      .card-slider .card {
+        height: auto;
+      }
+    }
+    .card-slider .card .main-link {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1; /* Makes link fill available space */
+    }
+    .card-slider .card .main-link:focus {
+      outline: none;
+    }
+    .card-slider .card .main-link:focus .title {
+      outline: 3px dashed orange;
+      outline-offset: -4px;
+      color: royalblue;
+      text-decoration: underline;
+    }
+    .card-slider .card .title {
+      color: #000;
+      margin: 0;
+      padding: 10px 10px 5px 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .card-slider .card .title:hover {
+      text-decoration: underline;
+    }
+    .card-slider .card .image {
+      order: -1;
+      position: relative;
+      height: 100px;
+      padding: 2px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card-slider .card .image img {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+         object-fit: cover;
+      filter: grayscale(0.5);
+      transition: all 0.3s ease-in-out;
+    }
+    .card-slider .card .image:hover img {
+      width: 110%;
+      height: 110%;
+    }
+    .card-slider .card .description {
+      margin: 7px 10px 15px 10px;
+      font-size: 14px;
+      opacity: 0.8;
+      flex-grow: 1; /* Fills space */
+    }
+    .card-slider .card .badge {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      z-index: 1;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: white;
+      background-color: #c80000;
+    }
+    .card-slider .card .price {
+      padding-left: 10px;
+    }
+    .card-slider .card .price .new-price {
+      font-weight: bold;
+    }
+    .card-slider .card .price .original-price {
+      margin-left: 5px;
+      font-size: 14px;
+      font-style: italic;
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+    .card-slider .card .rating {
+      margin: 10px 0 15px 10px;
+      color: orange;
+      font-size: 12px;
+    }
+    .card-slider .card .rating .reviews-link {
+      color: rgba(0, 0, 0, 0.6);
+      margin-left: 5px;
+    }
+    .card-slider .card .rating .reviews-link:hover {
+      color: black;
+    }
+    .card-slider .card .rating .reviews-link:focus {
+      color: royalblue;
+      outline: 3px dotted royalblue;
+      outline-offset: 2px;
+    }
+    .card-slider .card:hover {
+      border-color: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+    }
+    .card-slider .card:hover .image img,
+    .card-slider .card:focus .image img {
+      filter: grayscale(0);
+    }
+    .card-slider .card a:focus {
+      outline: none;
+    }
+  </style>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+</head>
+<body>
+
+  <div class="card-slider">
+    <div class="card">
+      <a href="https://www.zakirzone.com/" target="_blank" class="main-link">
+        <h2 class="title">First product title</h2>
+        <div class="image">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3609497/blanca-paloma-sanchez-500x500.jpg" alt="Small succulent with long, spikey leaves in a mug-like planter." />
+        </div>
+      </a>
+      <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <div class="badge">Sale</div>
+      <div class="price">
+        <span class="new-price">$4.49</span>
+        <span class="original-price">
+          <span class="sr-only">Originally:</span>
+          $10.00
+        </span>
+      </div>
+      <div class="rating">
+        <span class="sr-only">Rating: 3 out of 5 stars</span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="far fa-star" aria-hidden="true"></span>
+        <span class="far fa-star" aria-hidden="true"></span>
+        <a href="https://www.zakirzone.com/" class="reviews-link">77 reviews</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <a href="https://www.zakirzone.com/" target="_blank" class="main-link">
+        <h2 class="title">Second product title</h2>
+        <div class="image">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3609497/erol-ahmed-500x500.jpg" alt="Small succulent with long, spikey leaves in a mug-like planter." />
+        </div>
+      </a>
+      <p class="description">Lorem ipsum dolor sit amet, consectetur.</p>
+      <div class="price">
+        <span class="new-price">$19.99</span>
+      </div>
+      <div class="rating">
+        <span class="sr-only">Rating: 4 out of 5 stars</span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="far fa-star" aria-hidden="true"></span>
+        <a href="https://www.zakirzone.com/" class="reviews-link">30 reviews</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <a href="https://www.zakirzone.com/" target="_blank" class="main-link">
+        <h2 class="title">Third product title</h2>
+        <div class="image">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3609497/armando-castillejo-500x500.jpg" alt="Small succulent with long, spikey leaves in a mug-like planter." />
+        </div>
+      </a>
+      <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <div class="badge">Sale</div>
+      <div class="price">
+        <span class="new-price">$12.99</span>
+        <span class="original-price">
+          <span class="sr-only">Originally:</span>
+          $15.99
+        </span>
+      </div>
+      <div class="rating">
+        <span class="sr-only">Rating: 2 out of 5 stars</span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="far fa-star" aria-hidden="true"></span>
+        <span class="far fa-star" aria-hidden="true"></span>
+        <span class="far fa-star" aria-hidden="true"></span>
+        <a href="https://www.zakirzone.com/" class="reviews-link">0 reviews</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <a href="https://www.zakirzone.com/" target="_blank" class="main-link">
+        <h2 class="title">Fourth product title</h2>
+        <div class="image">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3609497/calle-macarone-500x500.jpg" alt="Small succulent with long, spikey leaves in a mug-like planter." />
+        </div>
+      </a>
+      <p class="description">Lorem ipsum dolor sit amet, consectetur.</p>
+      <div class="price">
+        <span class="new-price">$9.99</span>
+      </div>
+      <div class="rating">
+        <span class="sr-only">Rating: 5 out of 5 stars</span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <a href="https://www.zakirzone.com/" class="reviews-link">7 reviews</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <a href="https://www.zakirzone.com/" target="_blank" class="main-link">
+        <h2 class="title">Fifth Product title</h2>
+        <div class="image">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3609497/galina-n-300x300.jpg" alt="Small succulent with long, spikey leaves in a mug-like planter." />
+        </div>
+      </a>
+      <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <div class="price">
+        <span class="new-price">$0.99</span>
+      </div>
+      <div class="rating">
+        <span class="sr-only">Rating: 5 out of 5 stars</span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <span class="fas fa-star" aria-hidden="true"></span>
+        <a href="https://www.zakirzone.com/" class="reviews-link">9 reviews</a>
+      </div>
+    </div>
+  </div>
+
+  <script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/@accessible360/accessible-slick@1.0.1/slick/slick.min.js'></script>
+  
+  <script>
+    $(document).ready(function () {
+      $('.card-slider').slick({
+        dots: false,
+        arrows: true,
+        slidesToShow: 4,
+        infinite: false,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3 
+            }
+          },
+          {
+            breakpoint: 800,
+            settings: {
+              slidesToShow: 2 
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1 
+            }
+          }
+        ]
+      });
+    });
+  </script>
+</body>
+</html>
